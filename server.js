@@ -57,6 +57,28 @@ function authenticate(code, cb) {
   req.on('error', function(e) { cb(e.message); });
 }
 
+function codacy(owner, project, code, cb) {
+    var reqOptions = {
+      host: config.codacy_host,
+      path: "/2.0/" + owner + "/" + project,
+      method: config.codacy_method,
+      headers: {'api_token': code }
+    };
+    log(reqOptions)
+    var body = "";
+    var req = https.request(reqOptions, function(res) {
+        log(res.statusCode)
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) { body += chunk; });
+      res.on('end', function() {
+        cb(null, JSON.parse(body).commit);
+      });
+    });
+
+    req.end();
+    req.on('error', function(e) { cb(e.message); });
+}
+
 /**
  * Handles logging to the console.
  * Logged values can be sanitized before they are logged
@@ -101,6 +123,23 @@ app.get('/authenticate/:code', function(req, res) {
     }
     res.json(result);
   });
+});
+
+app.get('/codacy/:owner/:project/:code', function(req, res) {
+  log('authenticating code:', req.params.code);
+  log('owner:', req.params.owner, true);
+  log('project:', req.params.project, true);
+  codacy(req.params.owner, req.params.project, req.params.code,
+      function(err, data) {
+          var result
+          if ( err || !data ) {
+            result = {"error": err || "repo_not_found"};
+            log(result.error);
+          } else {
+            result = data.commit;
+          }
+          res.json(result);
+      });
 });
 
 module.exports.config = config;

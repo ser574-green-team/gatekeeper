@@ -4,5 +4,7 @@
   "oauth_host": "github.com",
   "oauth_port": 443,
   "oauth_path": "/login/oauth/access_token",
-  "oauth_method": "POST"
+  "oauth_method": "POST",
+  "codacy_host": "api.codacy.com",
+  "codacy_method": "GET"
 }

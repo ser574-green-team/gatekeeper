@@ -10,6 +10,8 @@
     "OAUTH_HOST": "github.com",
     "OAUTH_PORT": "443",
     "OAUTH_PATH": "/login/oauth/access_token",
-    "OAUTH_METHOD": "POST"
+    "OAUTH_METHOD": "POST",
+    "CODACY_HOST": "api.codacy.com",
+    "CODACY_METHOD": "GET"
   }
 }
