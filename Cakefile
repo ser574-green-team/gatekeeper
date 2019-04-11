@@ -20,8 +20,8 @@ herokuCreate = "heroku create --stack cedar"
 herokuPush   = "git push heroku master"
 herokuConfig = "heroku config:add NODE_ENV=production"
 
-herokuConfig = (client, secret) ->
-  "heroku config:add OAUTH_CLIENT_ID=#{client} OAUTH_CLIENT_SECRET=#{secret}"
+herokuConfig = (client, secret, codacy) ->
+  "heroku config:add OAUTH_CLIENT_ID=#{client} OAUTH_CLIENT_SECRET=#{secret} CODACY_API_KEY=#{codacy}"
 
 # Helpers
 # ----------
@@ -35,9 +35,11 @@ log = (message, color, explanation) ->
 
 option '-c', '--client [CLIENT_ID]', 'Client ID'
 option '-s', '--secret [CLIENT_SECRET]', 'Client Secret'
+option '-a', '--codacy [CODACY_KEY]', 'Codacy API Key'
+
 
 task 'heroku:config', 'Reconfigure heroku', (options) ->
-  exec herokuConfig(options.client, options.secret), (err, stdout, stderr) ->
+  exec herokuConfig(options.client, options.secret, options.codacy), (err, stdout, stderr) ->
     throw err if err
     log stdout
     log 'Sucessfully configured the app on heroku.', green

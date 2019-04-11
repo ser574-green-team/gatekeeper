@@ -12,6 +12,7 @@
     "OAUTH_PATH": "/login/oauth/access_token",
     "OAUTH_METHOD": "POST",
     "CODACY_HOST": "api.codacy.com",
-    "CODACY_METHOD": "GET"
+    "CODACY_METHOD": "GET",
+    "CODACY_KEY": ""
   }
 }

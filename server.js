@@ -125,11 +125,11 @@ app.get('/authenticate/:code', function(req, res) {
   });
 });
 
-app.get('/codacy/:owner/:project/:code', function(req, res) {
+app.get('/codacy/:owner/:project', function(req, res) {
   log('authenticating code:', req.params.code);
   log('owner:', req.params.owner, true);
   log('project:', req.params.project, true);
-  codacy(req.params.owner, req.params.project, req.params.code,
+  codacy(req.params.owner, req.params.project, config.codacy_key,
       function(err, data) {
           var result
           if ( err || !data ) {

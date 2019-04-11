@@ -6,5 +6,6 @@
   "oauth_path": "/login/oauth/access_token",
   "oauth_method": "POST",
   "codacy_host": "api.codacy.com",
-  "codacy_method": "GET"
+  "codacy_method": "GET",
+  "codacy_key": "CODACY_API_KEY"
 }
